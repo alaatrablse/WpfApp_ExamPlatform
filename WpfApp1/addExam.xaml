@@ -1,0 +1,50 @@
+﻿<Window x:Class="WpfApp1.addExam"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add New Exam" Height="550" Width="850">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Exam Name:"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtExamName" Width="250" Margin="0,0,0,5"/>
+
+        <Label Grid.Row="1" Content="Name of teacher:"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtTeacherName" Width="250" Margin="0,0,0,5"/>
+
+        <Label Grid.Row="2" Content="Exam Date (YYYY-MM-DD):"/>
+        <DatePicker Grid.Row="2" Width="250" Margin="0,0,0,5"/>
+        
+        <Label Grid.Row="3" Content="Exam Time (HH:MM):"/>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtExamTime" Width="250" Margin="0,0,0,5"/>
+        
+        <Label Grid.Row="4" Content="Exam Duration (minutes):"/>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtNumQuestions" Width="250" Margin="0,0,0,5"/>
+
+        <Button Grid.Row="5" Content="Add Questions" Click="btnAddQuestions_Click" Width="250" Margin="0,0,0,5"/>
+
+        <Label Grid.Row="6" Content="Questions:"/>
+        <ListBox Grid.Row="7" x:Name="lbQuestions" Height="250" Width="500" Margin="0,0,150,0"/>
+        <Button Content="Delete" HorizontalAlignment="Left" Margin="633,10,0,0" Grid.Row="7" VerticalAlignment="Top" Height="32" Width="89" Click="Button_Click_Delete"/>
+        <Button Content="Update" HorizontalAlignment="Left" Margin="633,62,0,0" Grid.Row="7" VerticalAlignment="Top" Height="32" Width="89" Click="Button_Click_Update"/>
+
+        <TextBlock Grid.Row="8"></TextBlock>
+
+        <Button Grid.Row="10" Content="Save Exam" Click="btnSaveExam_Click" Height="28" Width="250" Margin="0,5,0,0"/>
+        
+        <TextBlock Grid.Row="11"></TextBlock>
+        
+    </Grid>
+</Window>
