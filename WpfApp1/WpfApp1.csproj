@@ -62,7 +62,6 @@
       <DependentUpon>AddQuestion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Question.cs" />
-    <Compile Include="Models\QuestionOption.cs" />
     <Compile Include="Teacher.xaml.cs">
       <DependentUpon>Teacher.xaml</DependentUpon>
     </Compile>

@@ -29,9 +29,8 @@ namespace WpfApp1
                 ComboBoxAnswer.Items.Add($"Option {listboxoptions.Items.Count}");
 
                 rulses.QuestionText = questiontext.Text;
-                QuestionOption option = new QuestionOption();
-                option.OptionText = addoption.Text;
-                rulses.Options.Add(option);
+                string newOption = addoption.Text;
+                rulses.Options.Add(newOption);
                 addoption.Text = "";
             }
 
@@ -51,7 +50,7 @@ namespace WpfApp1
             else
             {
                 rulses.QuestionText = questiontext.Text;
-                rulses.IsRandomOptionArrangement = (bool)CheckBoxRandomize.IsChecked;
+                rulses.RandomOrder = (bool)CheckBoxRandomize.IsChecked;
                 OnClick(rulses);
                 this.Close();
             }

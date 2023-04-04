@@ -11,21 +11,21 @@ namespace WpfApp1.Models
     {
         public Question()
         {
-            Options = new List<QuestionOption>();
+            Options = new List<string>();
         }
        
-        public Question(string questionText, List<QuestionOption> options, int correctAnswerIndex, bool isRandomOptionArrangement)
+        public Question(string questionText, List<string> options, int correctAnswerIndex, bool randomOrder)
         {
             QuestionText = questionText;
             Options = options;
             CorrectAnswerIndex = correctAnswerIndex;
-            IsRandomOptionArrangement = isRandomOptionArrangement;
+            RandomOrder = randomOrder;
         }
 
         public string QuestionText { get; set; }
-        public List<QuestionOption> Options { get; set; }
+        public List<string> Options { get; set; }
         public int CorrectAnswerIndex { get; set; }
-        public bool IsRandomOptionArrangement { get; set; }
+        public bool RandomOrder { get; set; }
     }
 
 }
