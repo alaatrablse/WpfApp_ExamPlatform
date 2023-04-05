@@ -23,7 +23,8 @@ namespace WebApiServer.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Exam>>> GetExams()
         {
-            return await _context.Exams.ToListAsync();
+            return await _context.Exams.Include(e => e.Questions)
+                    .ThenInclude(q => q.Options).ToListAsync();
         }
 
         // GET: api/Exam/5

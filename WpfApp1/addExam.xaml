@@ -25,13 +25,14 @@
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtTeacherName" Width="250" Margin="0,0,0,5"/>
 
         <Label Grid.Row="2" Content="Exam Date (YYYY-MM-DD):"/>
-        <DatePicker Grid.Row="2" Width="250" Margin="0,0,0,5"/>
+        <DatePicker Grid.Row="2" x:Name="DatePickerExam" Width="250" Margin="0,0,0,5"/>
         
         <Label Grid.Row="3" Content="Exam Time (HH:MM):"/>
         <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtExamTime" Width="250" Margin="0,0,0,5"/>
-        
+
         <Label Grid.Row="4" Content="Exam Duration (minutes):"/>
-        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtNumQuestions" Width="250" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtExamDuration" Width="250" Margin="0,0,0,5" PreviewTextInput="TextBox_PreviewTextInput" />
+
 
         <Button Grid.Row="5" Content="Add Questions" Click="btnAddQuestions_Click" Width="250" Margin="0,0,0,5"/>
 

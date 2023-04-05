@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Student" HorizontalAlignment="Left" Margin="196,0,0,0" VerticalAlignment="Center" Height="30" Width="101"/>
+        <Button Content="Student" HorizontalAlignment="Left" Margin="196,0,0,0" VerticalAlignment="Center" Height="30" Width="101" Click="Button_Click_Student"/>
         <Button Content="Teacher" HorizontalAlignment="Left" Margin="491,0,0,0" VerticalAlignment="Center" Height="30" Width="107" Click="Button_Click_Teacher"/>
         <Label Content="LOG IN" HorizontalAlignment="Center" Margin="0,108,0,0" VerticalAlignment="Top" Height="37" Width="104" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+        <Label x:Name="aa" Content="Label" HorizontalAlignment="Left" Margin="118,293,0,0" VerticalAlignment="Top" Height="90" Width="390"/>
 
     </Grid>
 </Window>

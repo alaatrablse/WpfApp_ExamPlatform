@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1.Api;
 using WpfApp1.Models;
 
 namespace WpfApp1
@@ -22,20 +24,46 @@ namespace WpfApp1
     public partial class addExam : Window
     {
         private List<Question> _questions;
+        private ExamApiClient examApiClient = new ExamApiClient();
+
         public addExam()
         {
             InitializeComponent();
             _questions= new List<Question>();
         }
 
-        private void CreateExamButton_Click(object sender, RoutedEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            e.Cancel = true;
+            this.Visibility = Visibility.Hidden;
+            Teacher teacherWindow = new Teacher();
+            teacherWindow.Visibility = Visibility.Visible;
         }
 
-        private void btnSaveExam_Click(object sender, RoutedEventArgs e)
-        {
+        private async void btnSaveExam_Click(object sender, RoutedEventArgs e)
+        {            
+            if (string.IsNullOrEmpty(txtExamName.Text) || string.IsNullOrEmpty(txtTeacherName.Text) || !DatePickerExam.SelectedDate.HasValue || string.IsNullOrEmpty(txtExamTime.Text) || string.IsNullOrEmpty(txtExamDuration.Text))
+            {
+                MessageBox.Show("Please fill in all required fields.");
+                return;
+            }
+            if(_questions.Count <1)
+            {
+                MessageBox.Show("Please Add question.");
+                return;
+            }
 
+            Exam exam = new Exam();
+            exam.Name = txtExamName.Text;
+            exam.TeacherName = txtTeacherName.Text;
+            exam.Date = DatePickerExam.SelectedDate.Value;
+            exam.StartTime = DateTime.Parse(txtExamTime.Text);
+            exam.TotalTime = int.Parse(txtExamDuration.Text);
+            exam.Questions = _questions;
+
+            var exams = await examApiClient.CreateExamAsync(exam);
+
+            this.Close();
         }
 
         private void btnAddQuestions_Click(object sender, RoutedEventArgs e)
@@ -64,5 +92,16 @@ namespace WpfApp1
         {
 
         }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text[0]))
+            {
+                e.Handled = true;
+            }
+        }
+
+
+
     }
 }

@@ -29,7 +29,8 @@ namespace WpfApp1
                 ComboBoxAnswer.Items.Add($"Option {listboxoptions.Items.Count}");
 
                 rulses.QuestionText = questiontext.Text;
-                string newOption = addoption.Text;
+                Option newOption = new Option();
+                newOption.Value = addoption.Text;
                 rulses.Options.Add(newOption);
                 addoption.Text = "";
             }
