@@ -70,12 +70,13 @@ namespace WpfApp1.Api
 
         public async Task<Exam> CreateExamAsync(Exam exam)
         {
+            HttpResponseMessage response = null;
             try
             {
                 var json = JsonSerializer.Serialize(exam);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync("api/Exam", content);
+                response = await _httpClient.PostAsync("api/Exam", content);
                 response.EnsureSuccessStatusCode();
 
                 var result = await response.Content.ReadFromJsonAsync<Exam>();
@@ -84,8 +85,8 @@ namespace WpfApp1.Api
             }
             catch (Exception ex)
             {
-                throw new Exception($"{ex.Message}");
-            }
+                throw new Exception($"{ex.Message}\nAn exam with the same name already exists");
+    }
         }
 
         public async Task DeleteExamAsync(int id)

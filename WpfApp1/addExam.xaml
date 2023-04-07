@@ -15,7 +15,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Content="Exam Name:"/>
@@ -26,7 +25,7 @@
 
         <Label Grid.Row="2" Content="Exam Date (YYYY-MM-DD):"/>
         <DatePicker Grid.Row="2" x:Name="DatePickerExam" Width="250" Margin="0,0,0,5"/>
-        
+
         <Label Grid.Row="3" Content="Exam Time (HH:MM):"/>
         <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtExamTime" Width="250" Margin="0,0,0,5"/>
 
@@ -43,9 +42,17 @@
 
         <TextBlock Grid.Row="8"></TextBlock>
 
-        <Button Grid.Row="10" Content="Save Exam" Click="btnSaveExam_Click" Height="28" Width="250" Margin="0,5,0,0"/>
+
+        <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="100,5,5,5">
+            <Button Content="Save Exam on server" Width="150" Margin="5" Click="btnSaveExam_Click"/>
+            <Button Content="Save Exam on computer" Width="150" Margin="15,5,5,5" Click="btnSaveOnComputer_Click"/>
+            <Button Content="Cancel" Width="100" Margin="15,5,0,5" Click="CancelButton_Click"/>
+        </StackPanel>
+
+
         
-        <TextBlock Grid.Row="11"></TextBlock>
-        
+
+        <TextBlock Grid.Row="10"></TextBlock>
+
     </Grid>
 </Window>

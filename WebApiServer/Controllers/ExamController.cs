@@ -75,6 +75,10 @@ namespace WebApiServer.Controllers
         [HttpPost]
         public async Task<ActionResult<Exam>> PostExam(Exam exam)
         {
+            if (_context.Exams.Any(e => e.Name == exam.Name))
+            {
+                return BadRequest("An exam with the same name already exists.");
+            }
             _context.Exams.Add(exam);
             await _context.SaveChangesAsync();
 

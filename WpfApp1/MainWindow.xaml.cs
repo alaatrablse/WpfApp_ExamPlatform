@@ -20,33 +20,13 @@ namespace WpfApp1
         private void Button_Click_Teacher(object sender, RoutedEventArgs e)
         {
             Teacher newpage = new Teacher();
-            this.Visibility = Visibility.Hidden;
             newpage.Show();
+            this.Close();
         }
 
         private async void Button_Click_Student(object sender, RoutedEventArgs e)
         {
-            var examApiClient = new ExamApiClient();
-
-            // GET all exams
-            var exams = await examApiClient.GetAllExamsAsync();
-
-            // display the list of exams
-            StringBuilder sb = new StringBuilder();
-            foreach (var exam in exams)
-            {
-                sb.AppendLine($" Name: {exam.Name}, Date: {exam.Date}");
-                foreach (var q in exam.Questions) 
-                {
-                    sb.AppendLine($" Question: {q.QuestionText}, Date: {q.CorrectAnswerIndex}");
-                    foreach(var o in q.Options)
-                    {
-                        sb.AppendLine($" Options: {o.Value}");
-                    }
-                    sb.AppendLine("*****************************");
-                }
-            }
-            aa.Content = sb.ToString();
+            
         }
 
     }

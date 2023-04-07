@@ -28,7 +28,9 @@ namespace WebApiServer.Data
             modelBuilder.Entity<Option>()
                 .HasKey(o => o.Id); // Set the primary key for the Option entity
 
+            // Configure the ExamResult entity
+            modelBuilder.Entity<ExamResult>()
+                .HasKey(er => er.Id); // Set the primary key for the ExamResult entity
         }
     }
-
 }

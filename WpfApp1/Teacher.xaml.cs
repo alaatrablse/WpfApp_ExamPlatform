@@ -28,8 +28,8 @@ namespace WpfApp1
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
             addExam open=new addExam();
-            this.Visibility = Visibility.Hidden;
             open.Show();
+            this.Close();
         }
     }
 }

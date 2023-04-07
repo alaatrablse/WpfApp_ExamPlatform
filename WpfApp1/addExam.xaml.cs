@@ -1,20 +1,14 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Newtonsoft.Json;
 using WpfApp1.Api;
 using WpfApp1.Models;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace WpfApp1
 {
@@ -32,25 +26,26 @@ namespace WpfApp1
             _questions= new List<Question>();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private Exam getExam()
         {
-            e.Cancel = true;
-            this.Visibility = Visibility.Hidden;
-            Teacher teacherWindow = new Teacher();
-            teacherWindow.Visibility = Visibility.Visible;
-        }
-
-        private async void btnSaveExam_Click(object sender, RoutedEventArgs e)
-        {            
             if (string.IsNullOrEmpty(txtExamName.Text) || string.IsNullOrEmpty(txtTeacherName.Text) || !DatePickerExam.SelectedDate.HasValue || string.IsNullOrEmpty(txtExamTime.Text) || string.IsNullOrEmpty(txtExamDuration.Text))
             {
                 MessageBox.Show("Please fill in all required fields.");
-                return;
+                return null;
             }
-            if(_questions.Count <1)
+            if (_questions.Count < 1)
             {
                 MessageBox.Show("Please Add question.");
-                return;
+                return null;
+            }
+            string pattern = "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$";
+            Regex regex = new Regex(pattern);
+            string input = txtExamTime.Text;
+
+            if (!regex.IsMatch(input))
+            {
+                MessageBox.Show("Invalid input. Please enter a time in the format of HH:MM.");
+                return null;
             }
 
             Exam exam = new Exam();
@@ -61,8 +56,27 @@ namespace WpfApp1
             exam.TotalTime = int.Parse(txtExamDuration.Text);
             exam.Questions = _questions;
 
-            var exams = await examApiClient.CreateExamAsync(exam);
+            return exam;
+        }
 
+
+        private async void btnSaveExam_Click(object sender, RoutedEventArgs e)
+        {            
+            Exam exam = getExam();
+            if (exam == null) { return; }
+            try
+            {
+                var exams = await examApiClient.CreateExamAsync(exam);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+           
+
+            Teacher teacherPage = new Teacher();
+            teacherPage.Show();
             this.Close();
         }
 
@@ -101,7 +115,29 @@ namespace WpfApp1
             }
         }
 
+        private void btnSaveOnComputer_Click(object sender, RoutedEventArgs e)
+        {
+            Exam exam = getExam();
+            if (exam == null) { return; }
 
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string examFilePath = saveFileDialog.FileName;
 
+                // Serialize the exam to JSON and write it to the file
+                string examJson = JsonConvert.SerializeObject(exam, Formatting.Indented);
+                File.WriteAllText(examFilePath, examJson);
+                MessageBox.Show("Exam saved successfully.");
+            }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Teacher teacherPage = new Teacher();
+            teacherPage.Show();
+            this.Close();
+        }
     }
 }
