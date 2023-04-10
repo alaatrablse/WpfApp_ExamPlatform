@@ -11,6 +11,9 @@ namespace WebApiServer.Data
 
         }
         public DbSet<Exam> Exams { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Option> Options { get; set; }
+        public DbSet<ExamResult> examResults { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +34,10 @@ namespace WebApiServer.Data
             // Configure the ExamResult entity
             modelBuilder.Entity<ExamResult>()
                 .HasKey(er => er.Id); // Set the primary key for the ExamResult entity
+
+            // Configure the Error entity
+            modelBuilder.Entity<Error>()
+                .HasKey(er => er.Id); // Set the primary key for the Error entity
         }
     }
 }

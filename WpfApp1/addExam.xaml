@@ -44,9 +44,10 @@
 
 
         <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="100,5,5,5">
-            <Button Content="Save Exam on server" Width="150" Margin="5" Click="btnSaveExam_Click"/>
-            <Button Content="Save Exam on computer" Width="150" Margin="15,5,5,5" Click="btnSaveOnComputer_Click"/>
-            <Button Content="Cancel" Width="100" Margin="15,5,0,5" Click="CancelButton_Click"/>
+            <Button Content="Cancel" Width="100" Margin="0,5,15,5" Click="CancelButton_Click"/>
+            <Button x:Name="btnSaveExam" Content="Save Exam on server" Width="150" Margin="5" Click="btnSaveExam_Click"/>
+            <Button x:Name="btnSaveOnComputer" Content="Save Exam on computer" Width="150" Margin="15,5,5,5" Click="btnSaveOnComputer_Click"/>
+            
         </StackPanel>
 
 

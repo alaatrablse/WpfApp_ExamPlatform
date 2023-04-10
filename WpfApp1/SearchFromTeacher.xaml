@@ -1,0 +1,17 @@
+﻿<Window x:Class="WpfApp1.SearchFromTeacher"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Exam search by name" Height="450" Width="800">
+    <Grid>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="597,46,0,0" VerticalAlignment="Top" Height="34" Width="85" RenderTransformOrigin="0.358,0.616" Click="Button_Click_Search"/>
+        <TextBox x:Name="textName" HorizontalAlignment="Left" Margin="155,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="405" Height="34" FontSize="16"/>
+        <Label  Content="Exam name:" HorizontalAlignment="Left" Margin="24,46,0,0" VerticalAlignment="Top" Height="34" Width="105" FontSize="16"/>
+        <Label x:Name="LableExam" HorizontalAlignment="Left" Margin="78,116,0,0" VerticalAlignment="Top" Height="263" Width="613"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="695,46,0,0" VerticalAlignment="Top" Height="34" Width="85" Click="Button_Click_Cancel"/>
+
+    </Grid>
+</Window>

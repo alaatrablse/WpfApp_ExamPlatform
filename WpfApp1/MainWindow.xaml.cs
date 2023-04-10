@@ -1,9 +1,4 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using System.Windows;
-using WpfApp1.Api;
-using System.Net.Http;
-using System.Text;
+﻿using System.Windows;
 
 namespace WpfApp1
 {
@@ -24,9 +19,9 @@ namespace WpfApp1
             this.Close();
         }
 
-        private async void Button_Click_Student(object sender, RoutedEventArgs e)
+        private void Button_Click_Student(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
     }

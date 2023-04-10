@@ -27,7 +27,21 @@ namespace WpfApp1
 
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
-            addExam open=new addExam();
+            addExam open=new addExam(null);
+            open.Show();
+            this.Close();
+        }
+
+        private void Button_Click_search(object sender, RoutedEventArgs e)
+        {
+            SearchFromTeacher open = new SearchFromTeacher();
+            open.Show();
+            this.Close();
+        }
+
+        private void Button_Click_Update(object sender, RoutedEventArgs e)
+        {
+            UpdateExam open = new UpdateExam();
             open.Show();
             this.Close();
         }

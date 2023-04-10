@@ -1,0 +1,15 @@
+﻿<Window x:Class="WpfApp1.UpdateExam"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="UpdateExam" Height="341" Width="787">
+    <Grid Margin="0,0,0,-6">
+        <Button Content="update" HorizontalAlignment="Left" Margin="647,125,0,0" VerticalAlignment="Top" Height="34" Width="78" RenderTransformOrigin="0.358,0.616" Click="Button_Click_Update"/>
+        <TextBox x:Name="textName" HorizontalAlignment="Left" Margin="189,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="405" Height="34" FontSize="16"/>
+        <Label  Content="Exam name:" HorizontalAlignment="Left" Margin="58,125,0,0" VerticalAlignment="Top" Height="34" Width="105" FontSize="16"/>
+
+    </Grid>
+</Window>

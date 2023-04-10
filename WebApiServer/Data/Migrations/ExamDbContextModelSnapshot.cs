@@ -22,6 +22,36 @@ namespace WebApiServer.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("WebApiServer.Models.Error", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CorrectAnswer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ExamResultId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SelectedAnswer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExamResultId");
+
+                    b.ToTable("Error");
+                });
+
             modelBuilder.Entity("WebApiServer.Models.Exam", b =>
                 {
                     b.Property<int>("Id")
@@ -52,6 +82,29 @@ namespace WebApiServer.Data.Migrations
                     b.ToTable("Exams");
                 });
 
+            modelBuilder.Entity("WebApiServer.Models.ExamResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("examResults");
+                });
+
             modelBuilder.Entity("WebApiServer.Models.Option", b =>
                 {
                     b.Property<int>("Id")
@@ -71,7 +124,7 @@ namespace WebApiServer.Data.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Option");
+                    b.ToTable("Options");
                 });
 
             modelBuilder.Entity("WebApiServer.Models.Question", b =>
@@ -99,7 +152,14 @@ namespace WebApiServer.Data.Migrations
 
                     b.HasIndex("ExamId");
 
-                    b.ToTable("Question");
+                    b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("WebApiServer.Models.Error", b =>
+                {
+                    b.HasOne("WebApiServer.Models.ExamResult", null)
+                        .WithMany("Errors")
+                        .HasForeignKey("ExamResultId");
                 });
 
             modelBuilder.Entity("WebApiServer.Models.Option", b =>
@@ -119,6 +179,11 @@ namespace WebApiServer.Data.Migrations
             modelBuilder.Entity("WebApiServer.Models.Exam", b =>
                 {
                     b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("WebApiServer.Models.ExamResult", b =>
+                {
+                    b.Navigation("Errors");
                 });
 
             modelBuilder.Entity("WebApiServer.Models.Question", b =>

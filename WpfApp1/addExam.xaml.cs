@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using WpfApp1.Api;
 using WpfApp1.Models;
 using Formatting = Newtonsoft.Json.Formatting;
+using System.Windows.Controls;
 
 namespace WpfApp1
 {
@@ -19,11 +20,37 @@ namespace WpfApp1
     {
         private List<Question> _questions;
         private ExamApiClient examApiClient = new ExamApiClient();
+        
+        private Exam examLocal = new Exam();
 
-        public addExam()
+
+        public addExam(Exam exam)
         {
             InitializeComponent();
             _questions= new List<Question>();
+
+            if(exam != null)
+            {
+                examLocal = exam;
+                this.Title = "Update Exam";
+                btnSaveExam.Content = "Save Update Exam";
+                btnSaveOnComputer.Visibility = Visibility.Collapsed;
+                txtExamName.Text =exam.Name;
+                txtTeacherName.Text = exam.TeacherName;
+                txtExamTime.Text = exam.StartTime.ToString("HH:mm");
+                DatePickerExam.Text = exam.Date.ToString("dd/MM/yyyy");
+                txtExamDuration.Text = exam.TotalTime.ToString();
+                foreach(Question q in exam.Questions)
+                {
+                    lbQuestions.Items.Add(q.QuestionText);
+                    _questions.Add(q);
+                }
+            }
+            else
+            {
+                examLocal = null;
+            }
+
         }
 
         private Exam getExam()
@@ -55,6 +82,11 @@ namespace WpfApp1
             exam.StartTime = DateTime.Parse(txtExamTime.Text);
             exam.TotalTime = int.Parse(txtExamDuration.Text);
             exam.Questions = _questions;
+
+            if(examLocal != null)
+            {
+                exam.Id = examLocal.Id;
+            }
 
             return exam;
         }

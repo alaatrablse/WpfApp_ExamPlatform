@@ -27,9 +27,22 @@ namespace WebApiServer.Controllers
                     .ThenInclude(q => q.Options).ToListAsync();
         }
 
-        // GET: api/Exam/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Exam>> GetExam(int id)
+        // GET: api/Exam/MyExamName
+        [HttpGet("{name}")]
+        public async Task<ActionResult<Exam>> GetExamByName(string name)
+        {
+            var exam = await _context.Exams.Include(e => e.Questions)
+            .ThenInclude(q => q.Options).FirstOrDefaultAsync(e => e.Name == name);
+
+            if (exam == null)
+            {
+                return NotFound();
+            }
+
+            return exam;
+        }
+
+        private async Task<ActionResult<Exam>> GetExam(int id)
         {
             var exam = await _context.Exams.FindAsync(id);
 
@@ -43,47 +56,138 @@ namespace WebApiServer.Controllers
 
         // PUT: api/Exam/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutExam(int id, Exam exam)
+        public IActionResult PutExam(int id, Exam exam)
         {
             if (id != exam.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(exam).State = EntityState.Modified;
+            // get the existing exam object from the database
+            var existingExam = _context.Exams.Include(e => e.Questions).ThenInclude(q => q.Options).FirstOrDefault(e => e.Id == exam.Id);
 
-            try
+            if (existingExam != null)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ExamExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                // check which questions and options have been removed
+                var removedQuestions = existingExam.Questions.Where(q => !exam.Questions.Any(eq => eq.Id == q.Id)).ToList();
+                var removedOptions = existingExam.Questions.SelectMany(q => q.Options).Where(o => !exam.Questions.SelectMany(eq => eq.Options).Any(qo => qo.Id == o.Id)).ToList();
 
-            return NoContent();
+                // remove questions and options from the context if they have been removed from the exam
+                removedQuestions.ForEach(q => _context.Entry(q).State = EntityState.Deleted);
+                removedOptions.ForEach(o => _context.Entry(o).State = EntityState.Deleted);
+
+                // update the remaining questions and options in the database
+                foreach (var question in exam.Questions)
+                {
+                    var existingQuestion = existingExam.Questions.FirstOrDefault(q => q.Id == question.Id);
+                    if (existingQuestion != null)
+                    {
+                        // update the question properties
+                        existingQuestion.QuestionText = question.QuestionText;
+                        existingQuestion.CorrectAnswerIndex = question.CorrectAnswerIndex;
+                        existingQuestion.RandomOrder = question.RandomOrder;
+
+                        // check which options have been removed
+                        var removedQuestionOptions = existingQuestion.Options.Where(o => !question.Options.Any(qo => qo.Id == o.Id)).ToList();
+
+                        // remove the options from the context if they have been removed from the question
+                        removedQuestionOptions.ForEach(o => _context.Entry(o).State = EntityState.Deleted);
+
+                        // update the remaining options in the question
+                        foreach (var option in question.Options)
+                        {
+                            var existingOption = existingQuestion.Options.FirstOrDefault(o => o.Id == option.Id);
+                            if (existingOption != null)
+                            {
+                                // update the option value
+                                existingOption.Value = option.Value;
+                            }
+                            else
+                            {
+                                // add a new option to the question
+                                existingQuestion.Options.Add(new Option
+                                {
+                                    Value = option.Value
+                                });
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // add a new question to the exam
+                        existingExam.Questions.Add(new Question
+                        {
+                            QuestionText = question.QuestionText,
+                            CorrectAnswerIndex = question.CorrectAnswerIndex,
+                            RandomOrder = question.RandomOrder,
+                            Options = question.Options.Select(o => new Option
+                            {
+                                Value = o.Value
+                            }).ToList()
+                        });
+                    }
+                }
+
+                // update the exam properties
+                existingExam.Name = exam.Name;
+                existingExam.Date = exam.Date;
+                existingExam.TeacherName = exam.TeacherName;
+                existingExam.StartTime = exam.StartTime;
+                existingExam.TotalTime = exam.TotalTime;
+
+                // save the changes to the database
+                _context.SaveChanges();
+
+                return Ok(existingExam);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
+
 
         // POST: api/Exam
         [HttpPost]
         public async Task<ActionResult<Exam>> PostExam(Exam exam)
         {
-            if (_context.Exams.Any(e => e.Name == exam.Name))
+            if (_context.Exams.FirstOrDefault(e => e.Id == exam.Id) != null)
+            {
+                var existingExam = await _context.Exams.Include(e => e.Questions)
+                .ThenInclude(q => q.Options).FirstOrDefaultAsync(e => e.Id == exam.Id);
+
+                // Update the existing exam with the new values
+                if (existingExam != null)
+                {
+                    if (existingExam.Name != exam.Name)
+                    {
+                        if (_context.Exams.FirstOrDefault(e => e.Name == exam.Name) != null)
+                        {
+                            return BadRequest("An exam with the same name already exists.");
+                        }
+                    }
+
+                    PutExam(existingExam.Id, exam);
+                }
+                else
+                {
+                    return BadRequest("Server error");
+                }
+
+                return Ok(existingExam);
+            }
+            if (_context.Exams.FirstOrDefault(e => e.Name == exam.Name) != null)
             {
                 return BadRequest("An exam with the same name already exists.");
             }
-            _context.Exams.Add(exam);
+
+                // If the exam with the same name doesn't exist, create a new exam
+                _context.Exams.Add(exam);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetExam), new { id = exam.Id }, exam);
+            return Ok(exam);
         }
+
 
         // DELETE: api/Exam/5
         [HttpDelete("{id}")]

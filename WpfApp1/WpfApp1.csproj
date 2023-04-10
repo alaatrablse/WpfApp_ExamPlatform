@@ -98,8 +98,14 @@
     <Compile Include="Api\ExamApiClient.cs" />
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\Question.cs" />
+    <Compile Include="SearchFromTeacher.xaml.cs">
+      <DependentUpon>SearchFromTeacher.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Teacher.xaml.cs">
       <DependentUpon>Teacher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateExam .xaml.cs">
+      <DependentUpon>UpdateExam .xaml</DependentUpon>
     </Compile>
     <Page Include="addExam.xaml">
       <SubType>Designer</SubType>
@@ -121,7 +127,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SearchFromTeacher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Teacher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdateExam .xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

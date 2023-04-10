@@ -35,11 +35,11 @@ namespace WpfApp1.Api
             return result;
         }
 
-        public async Task<Exam> GetExamAsync(int id)
+        public async Task<Exam> GetExamAsyncByName(string name)
         {
             try
             {
-                HttpResponseMessage response = await _httpClient.GetAsync($"api/Exam/{id}");
+                HttpResponseMessage response = await _httpClient.GetAsync($"api/Exam/{name}");
                 response.EnsureSuccessStatusCode();
 
                 var result = await response.Content.ReadFromJsonAsync<Exam>();
