@@ -10,6 +10,7 @@ using WpfApp1.Api;
 using WpfApp1.Models;
 using Formatting = Newtonsoft.Json.Formatting;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace WpfApp1
 {
@@ -114,7 +115,7 @@ namespace WpfApp1
 
         private void btnAddQuestions_Click(object sender, RoutedEventArgs e)
         {
-            AddQuestion questionpage = new AddQuestion();
+            AddQuestion questionpage = new AddQuestion(null);
             questionpage.OnClick += AddQ;
             questionpage.ShowDialog();
         }
@@ -130,14 +131,49 @@ namespace WpfApp1
         {
             if (lbQuestions.SelectedIndex != -1)
             {
+                var selectedQuestion = lbQuestions.SelectedItem as string;
                 lbQuestions.Items.RemoveAt(lbQuestions.SelectedIndex);
+                _questions.RemoveAll(q => q.QuestionText == selectedQuestion);
+
             }
         }
 
         private void Button_Click_Update(object sender, RoutedEventArgs e)
         {
+            if (lbQuestions.SelectedIndex != -1)
+            {
+                string selectedQuestionText = lbQuestions.SelectedValue.ToString();
+                Question selectedQuestion = _questions.SingleOrDefault(q => q.QuestionText == selectedQuestionText);
+                if (selectedQuestion != null)
+                {
+                    AddQuestion addExamWindow = new AddQuestion(selectedQuestion);
+                    addExamWindow.OnClick += UpdateQ;
+                    addExamWindow.ShowDialog();
+                }
+            }
+        }
+
+        private void UpdateQ(Question rules)
+        {
+            // find the question to update
+            var questionToUpdate = _questions.Find(q => q.Id == rules.Id);
+
+            // update the question if found
+            if (questionToUpdate != null)
+            {
+                // apply the rules to the question
+                questionToUpdate.QuestionText = rules.QuestionText;
+                questionToUpdate.RandomOrder = rules.RandomOrder;
+                questionToUpdate.Options = rules.Options;
+                questionToUpdate.CorrectAnswerIndex = rules.CorrectAnswerIndex;
+
+                questionToUpdate = _questions.Find(q => q.Id == rules.Id);
+                lbQuestions.Items[lbQuestions.SelectedIndex] = rules.QuestionText;
+            }
+            
 
         }
+
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
 
-        <Label Grid.Row="0" Content="Add Question" FontSize="20" FontWeight="Bold"/>
+        <Label x:Name="labelTitle" Grid.Row="0" Content="Add Question" FontSize="20" FontWeight="Bold"/>
 
         <Label Grid.Row="1" Content="Question (Text/Url images):"/>
         <TextBox x:Name="questiontext" Grid.Row="1" Margin="5" Width="490" />
@@ -44,7 +44,7 @@
         
         <!-- Buttons StackPanel -->
         <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="5">
-            <Button Content="Save" Width="100" Margin="5" Click="SaveButton_Click"/>
+            <Button x:Name="butSave" Content="Save" Width="100" Margin="5" Click="SaveButton_Click"/>
             <Button Content="Cancel" Width="100" Margin="5" Click="CancelButton_Click"/>
         </StackPanel>
 

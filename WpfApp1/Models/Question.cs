@@ -14,6 +14,7 @@ namespace WpfApp1.Models
             Options = new List<Option>();
         }
 
+        public int Id { get; set; }
         public string QuestionText { get; set; }
         public int CorrectAnswerIndex { get; set; }
         public bool RandomOrder { get; set; }
@@ -22,6 +23,7 @@ namespace WpfApp1.Models
 
     public class Option
     {
+        public int Id { get; set; }
         public string Value { get; set; }
     }
 
