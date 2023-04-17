@@ -12,7 +12,7 @@ using WebApiServer.Data;
 namespace WebApiServer.Data.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    [Migration("20230410115517_createdatabase")]
+    [Migration("20230413125824_createdatabase")]
     partial class createdatabase
     {
         /// <inheritdoc />
@@ -92,6 +92,9 @@ namespace WebApiServer.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");

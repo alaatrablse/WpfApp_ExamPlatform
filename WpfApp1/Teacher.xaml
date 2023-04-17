@@ -11,5 +11,6 @@
         <Button Content="Adding a new exam" HorizontalAlignment="Left" Margin="449,154,0,0" VerticalAlignment="Top" Height="33" Width="147" FontSize="14" Click="Button_Click_Add"/>
         <Button Content="Exam update" HorizontalAlignment="Left" Margin="175,250,0,0" VerticalAlignment="Top" Height="33" Width="147" FontSize="14" Click="Button_Click_Update"/>
         <Button Content="static" HorizontalAlignment="Left" Margin="449,250,0,0" VerticalAlignment="Top" Height="33" Width="147" FontSize="14"/>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="40,366,0,0" VerticalAlignment="Top" Height="33" Width="57" Click="Button_Click_Back"/>
     </Grid>
 </Window>

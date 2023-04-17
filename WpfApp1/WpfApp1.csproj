@@ -96,10 +96,20 @@
       <DependentUpon>AddQuestion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Api\ExamApiClient.cs" />
+    <Compile Include="ExamPlatform.xaml.cs">
+      <DependentUpon>ExamPlatform.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Exam.cs" />
+    <Compile Include="Models\ExamResult.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="SearchFromTeacher.xaml.cs">
       <DependentUpon>SearchFromTeacher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StartExam.xaml.cs">
+      <DependentUpon>StartExam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Student.xaml.cs">
+      <DependentUpon>Student.xaml</DependentUpon>
     </Compile>
     <Compile Include="Teacher.xaml.cs">
       <DependentUpon>Teacher.xaml</DependentUpon>
@@ -112,6 +122,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddQuestion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExamPlatform.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,6 +142,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SearchFromTeacher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartExam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Student.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -45,5 +45,12 @@ namespace WpfApp1
             open.Show();
             this.Close();
         }
+
+        private void Button_Click_Back(object sender, RoutedEventArgs e)
+        {
+            MainWindow open = new MainWindow();
+            open.Show();
+            this.Close();
+        }
     }
 }

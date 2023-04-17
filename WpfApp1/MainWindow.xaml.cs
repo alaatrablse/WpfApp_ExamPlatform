@@ -21,7 +21,9 @@ namespace WpfApp1
 
         private void Button_Click_Student(object sender, RoutedEventArgs e)
         {
-
+            StartExam newpage = new StartExam();
+            newpage.Show();
+            this.Close();
         }
 
     }

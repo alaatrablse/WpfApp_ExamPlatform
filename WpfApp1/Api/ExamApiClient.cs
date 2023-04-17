@@ -101,5 +101,87 @@ namespace WpfApp1.Api
                 throw new Exception($"{ex.Message}");
             }
         }
+
+        /// All requests of Examresult
+        public async Task<List<ExamResult>> GetAllExamResultsAsync()
+        {
+            var response = await _httpClient.GetAsync("api/ExamResult");
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<List<ExamResult>>();
+
+            return result;
+        }
+
+        public async Task<ExamResult> GetExamResultAsync(int id, int examId)
+        {
+            try
+            {
+                HttpResponseMessage response = await _httpClient.GetAsync($"api/ExamResult/{id}/{examId}");
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content.ReadFromJsonAsync<ExamResult>();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
+        public async Task UpdateExamResultAsync(int id, ExamResult examResult)
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(examResult);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PutAsync($"api/ExamResult/{id}", content);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
+        public async Task<ExamResult> CreateExamResultAsync(ExamResult examResult)
+        {
+            HttpResponseMessage response = null;
+            try
+            {
+                var json = JsonSerializer.Serialize(examResult);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                response = await _httpClient.PostAsync("api/ExamResult", content);
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content.ReadFromJsonAsync<ExamResult>();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
+        public async Task DeleteExamResultAsync(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"api/ExamResult/{id}");
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
+        }
+
+
+
+
     }
 }

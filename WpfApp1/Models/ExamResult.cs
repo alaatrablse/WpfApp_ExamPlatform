@@ -1,4 +1,6 @@
-﻿namespace WebApiServer.Models
+﻿using System.Collections.Generic;
+
+namespace WpfApp1.Models
 {
     public class ExamResult
     {

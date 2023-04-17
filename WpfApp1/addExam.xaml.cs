@@ -11,6 +11,7 @@ using WpfApp1.Models;
 using Formatting = Newtonsoft.Json.Formatting;
 using System.Windows.Controls;
 using System.Linq;
+using System.Globalization;
 
 namespace WpfApp1
 {
@@ -80,7 +81,8 @@ namespace WpfApp1
             exam.Name = txtExamName.Text;
             exam.TeacherName = txtTeacherName.Text;
             exam.Date = DatePickerExam.SelectedDate.Value;
-            exam.StartTime = DateTime.Parse(txtExamTime.Text);
+            TimeSpan time = TimeSpan.Parse(txtExamTime.Text);
+            exam.StartTime = exam.Date.Date + time;
             exam.TotalTime = int.Parse(txtExamDuration.Text);
             exam.Questions = _questions;
 
