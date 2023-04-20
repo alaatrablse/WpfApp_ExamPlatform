@@ -40,6 +40,26 @@ namespace WebApiServer.Controllers
             return examResult;
         }
 
+
+
+        // GET: api/ExamResult/Static/2004
+        [HttpGet("Static/{id}")]
+        public async Task<ActionResult<IEnumerable<ExamResult>>> GetExamStatic(int id)
+        {
+            var examResult = await _context.ExamResults.Include(e => e.Errors)
+                .Where(e => e.ExamId == id).ToListAsync();
+
+
+            if (examResult == null)
+            {
+                return NotFound();
+            }
+
+            return examResult;
+        }
+
+
+
         // PUT: api/ExamResult/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExamResult(int id, ExamResult examResult)

@@ -21,10 +21,14 @@ namespace WebApiServer.Controllers
 
         // GET: api/Exam
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Exam>>> GetExams()
+        public async Task<ActionResult<IEnumerable<object>>> GetExams()
         {
-            return await _context.Exams.Include(e => e.Questions)
-                    .ThenInclude(q => q.Options).ToListAsync();
+            /*return await _context.Exams.Include(e => e.Questions)
+                    .ThenInclude(q => q.Options).ToListAsync();*/
+
+            return await _context.Exams
+                .Select(e => new { e.Id, e.Name })
+                .ToListAsync();
         }
 
         // GET: api/Exam/MyExamName
@@ -97,7 +101,7 @@ namespace WebApiServer.Controllers
                         foreach (var option in question.Options)
                         {
                             var existingOption = existingQuestion.Options.FirstOrDefault(o => o.Id == option.Id);
-                            if (existingOption != null)
+                            if (existingOption != null && option.Id != 0)
                             {
                                 // update the option value
                                 existingOption.Value = option.Value;

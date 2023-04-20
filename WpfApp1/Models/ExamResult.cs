@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WpfApp1.Models
 {
@@ -15,6 +16,11 @@ namespace WpfApp1.Models
         public int ExamId { get; set; }
         public int Score { get; set; }
         public List<Error> Errors { get; set; }
+
+        public static implicit operator ExamResult(List<Exam> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Error

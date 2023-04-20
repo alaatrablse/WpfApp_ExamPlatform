@@ -52,5 +52,12 @@ namespace WpfApp1
             open.Show();
             this.Close();
         }
+
+        private void Button_Click_Static(object sender, RoutedEventArgs e)
+        {
+            ExamStatistics open = new ExamStatistics();
+            open.Show();
+            this.Close();
+        }
     }
 }

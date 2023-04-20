@@ -207,6 +207,8 @@ namespace WpfApp1
                 }
             }
 
+            Results.Score = score;
+
             try
             {
                 await examApiClient.CreateExamResultAsync(Results);

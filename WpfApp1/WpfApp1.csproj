@@ -99,6 +99,9 @@
     <Compile Include="ExamPlatform.xaml.cs">
       <DependentUpon>ExamPlatform.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExamStatistics.xaml.cs">
+      <DependentUpon>ExamStatistics.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\ExamResult.cs" />
     <Compile Include="Models\Question.cs" />
@@ -126,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExamPlatform.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExamStatistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

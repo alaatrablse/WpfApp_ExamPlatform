@@ -129,6 +129,23 @@ namespace WpfApp1.Api
                 throw new Exception($"{ex.Message}");
             }
         }
+        
+        public async Task<List<ExamResult>> GetExamStaticAsync(int id)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"api/ExamResult/Static/{id}");
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content.ReadFromJsonAsync<List<ExamResult>>();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
+        }
 
         public async Task UpdateExamResultAsync(int id, ExamResult examResult)
         {
