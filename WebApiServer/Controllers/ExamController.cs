@@ -23,9 +23,6 @@ namespace WebApiServer.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<object>>> GetExams()
         {
-            /*return await _context.Exams.Include(e => e.Questions)
-                    .ThenInclude(q => q.Options).ToListAsync();*/
-
             return await _context.Exams
                 .Select(e => new { e.Id, e.Name })
                 .ToListAsync();
@@ -152,6 +149,7 @@ namespace WebApiServer.Controllers
 
 
         // POST: api/Exam
+        //if exam id exist go to PutExam
         [HttpPost]
         public async Task<ActionResult<Exam>> PostExam(Exam exam)
         {

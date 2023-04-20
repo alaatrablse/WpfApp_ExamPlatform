@@ -33,6 +33,7 @@ namespace WpfApp1
 
             if(exam != null)
             {
+                // get exam
                 examLocal = exam;
                 this.Title = "Update Exam";
                 btnSaveExam.Content = "Save Update Exam";
@@ -55,6 +56,7 @@ namespace WpfApp1
 
         }
 
+        //get the data of exam from user input
         private Exam getExam()
         {
             if (string.IsNullOrEmpty(txtExamName.Text) || string.IsNullOrEmpty(txtTeacherName.Text) || !DatePickerExam.SelectedDate.HasValue || string.IsNullOrEmpty(txtExamTime.Text) || string.IsNullOrEmpty(txtExamDuration.Text))
@@ -94,7 +96,7 @@ namespace WpfApp1
             return exam;
         }
 
-
+        //seve the exam or update
         private async void btnSaveExam_Click(object sender, RoutedEventArgs e)
         {            
             Exam exam = getExam();
@@ -115,6 +117,7 @@ namespace WpfApp1
             this.Close();
         }
 
+        //open AddQuestion page
         private void btnAddQuestions_Click(object sender, RoutedEventArgs e)
         {
             AddQuestion questionpage = new AddQuestion(null);
@@ -122,13 +125,14 @@ namespace WpfApp1
             questionpage.ShowDialog();
         }
 
-
+        //add a question from the "AddQuestion" page
         private void AddQ(Question rulses)
         {
             _questions.Add(rulses);
             lbQuestions.Items.Add(rulses.QuestionText.ToString());
         }
 
+        // delete question 
         private void Button_Click_Delete(object sender, RoutedEventArgs e)
         {
             if (lbQuestions.SelectedIndex != -1)

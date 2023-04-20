@@ -20,11 +20,14 @@ namespace WpfApp1.Api
         private HttpClient _httpClient = new HttpClient();
         public ExamApiClient()
         {
+            // Set the base address of the API
             _httpClient.BaseAddress = new Uri("https://localhost:7071/");
+            // Clear the accept header and add a new one for JSON data
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        // Get all exams from the API
         public async Task<List<Exam>> GetAllExamsAsync()
         {
             var response = await _httpClient.GetAsync("api/Exam");
@@ -35,6 +38,7 @@ namespace WpfApp1.Api
             return result;
         }
 
+        // Get a specific exam by name from the API
         public async Task<Exam> GetExamAsyncByName(string name)
         {
             try
@@ -52,6 +56,7 @@ namespace WpfApp1.Api
             }
         }
 
+        // Update an exam in the API
         public async Task UpdateExamAsync(int id, Exam exam)
         {
             try
@@ -68,6 +73,7 @@ namespace WpfApp1.Api
             }
         }
 
+        // Create a new exam in the API
         public async Task<Exam> CreateExamAsync(Exam exam)
         {
             HttpResponseMessage response = null;
@@ -89,6 +95,7 @@ namespace WpfApp1.Api
     }
         }
 
+        // Delete an exam from the API
         public async Task DeleteExamAsync(int id)
         {
             try
@@ -102,7 +109,7 @@ namespace WpfApp1.Api
             }
         }
 
-        /// All requests of Examresult
+        // Get all exam results from the API
         public async Task<List<ExamResult>> GetAllExamResultsAsync()
         {
             var response = await _httpClient.GetAsync("api/ExamResult");
@@ -113,6 +120,7 @@ namespace WpfApp1.Api
             return result;
         }
 
+        // Get a specific exam result by ID and exam ID from the API
         public async Task<ExamResult> GetExamResultAsync(int id, int examId)
         {
             try
@@ -129,7 +137,8 @@ namespace WpfApp1.Api
                 throw new Exception($"{ex.Message}");
             }
         }
-        
+
+        // Get all exam results for a specific
         public async Task<List<ExamResult>> GetExamStaticAsync(int id)
         {
             try
@@ -147,6 +156,7 @@ namespace WpfApp1.Api
             }
         }
 
+        // Update an exam results for a specific
         public async Task UpdateExamResultAsync(int id, ExamResult examResult)
         {
             try
@@ -163,6 +173,7 @@ namespace WpfApp1.Api
             }
         }
 
+        // Create a new exam results in the API
         public async Task<ExamResult> CreateExamResultAsync(ExamResult examResult)
         {
             HttpResponseMessage response = null;
@@ -184,6 +195,7 @@ namespace WpfApp1.Api
             }
         }
 
+        // Delete an exam results from the API
         public async Task DeleteExamResultAsync(int id)
         {
             try
@@ -196,9 +208,5 @@ namespace WpfApp1.Api
                 throw new Exception($"{ex.Message}");
             }
         }
-
-
-
-
     }
 }
